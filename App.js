@@ -1,21 +1,91 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Button } from 'react-native';
 import { TabNavigator } from 'react-navigation';
 
-class Home extends React.Component {
+class Header extends React.Component {
   render() {
     return (
-      <View>
-        <Text style={[home_styles.header]}>Welcome to Design Patterns App!!!</Text>
-        <Text>The main purpose of this app is to teach you how to use design patterns in programming.
-          Another purpose is to guide you on when and where a design pattern should be used.</Text>
-      </View>
+      <Text style={[styles.header]}>{this.props.children}</Text>
     );
   }
 }
 
+class RegularText extends React.Component {
+  render() {
+    return (
+      <Text style={styles.regular_text}>{this.props.children}</Text>
+    )
+  }
+}
+
+class SmallText extends React.Component {
+  render() {
+    return (
+      <Text style={styles.small_text}>{this.props.children}</Text>
+    )
+  }
+}
+
+class Home extends React.Component {
+  static navigationOptions = {
+    tabBarLabel: 'Home'
+  };
+
+  render() {
+    return (
+      <ScrollView style={styles.container}>
+        <Header>Welcome to Design Patterns App!!!</Header>
+        <RegularText>The main purpose of this app is to teach you how to use design patterns in programming.
+          Another purpose is to guide you on when and where a design pattern should be used.</RegularText>
+
+        <RegularText>The best way to start is by knowing the different types of design patterns.</RegularText>
+
+        <SmallText>Click on Button to view types of Design Patterns</SmallText>
+        <Button
+          onPress={() => this.props.navigation.navigate('Type')}
+          title="Go to types of design patterns"
+        />
+      </ScrollView>
+    );
+  }
+}
+
+class Type extends React.Component {
+  static navigationOptions = {
+    tabBarLabel: 'Types of Design Patterns',
+  };
+  render() {
+    return (
+      <ScrollView style={styles.container} >
+        <Text>Types of Design Patterns</Text>
+      </ScrollView>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  header: {
+    fontSize: 25,
+    fontWeight: "bold",
+  },
+  regular_text: {
+    marginTop: 20,
+    fontSize: 18,
+  },
+  small_text: {
+    marginTop: 20,
+    fontSize: 12,
+  },
+  container: {
+    marginTop: 30
+  }
+})
+
 const MainNavigator = TabNavigator({
-    Home: {screen: Home}
+    Home: {screen: Home},
+    Type: {screen: Type},
+}, {
+  tabBarPosition: 'bottom',
 });
 
 export default class App extends React.Component {
@@ -25,22 +95,5 @@ export default class App extends React.Component {
     );
   }
 }
-
-const home_styles = StyleSheet.create({
-  header: {
-    fontSize: 25,
-    fontWeight: "bold",
-  }
-})
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 20,
-    backgroundColor: '#ecf0f1',
-  }
-})
 
 
