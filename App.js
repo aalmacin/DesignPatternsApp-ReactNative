@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView, Button } from 'react-native';
 import { TabNavigator } from 'react-navigation';
+import { Ionicons, FontAwesome } from '@expo/vector-icons';
 
 class Header extends React.Component {
   render() {
@@ -26,6 +27,14 @@ class SmallText extends React.Component {
   }
 }
 
+class SmallIcon extends React.Component {
+  render() {
+    return (
+      <FontAwesome name={this.props.type} size={32} style={{marginRight: 10}} color="green" />
+    )
+  }
+}
+
 class Home extends React.Component {
   static navigationOptions = {
     tabBarLabel: 'Home'
@@ -35,8 +44,11 @@ class Home extends React.Component {
     return (
       <ScrollView style={styles.container}>
         <Header>Welcome to Design Patterns App!!!</Header>
-        <RegularText>The main purpose of this app is to teach you how to use design patterns in programming.
-          Another purpose is to guide you on when and where a design pattern should be used.</RegularText>
+        <RegularText>
+          <SmallIcon type="book" />
+          The main purpose of this app is to teach you how to use design patterns in programming.
+          Another purpose is to guide you on when and where a design pattern should be used.
+        </RegularText>
 
         <RegularText>The best way to start is by knowing the different types of design patterns.</RegularText>
 
